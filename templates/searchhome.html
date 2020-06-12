@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Home - User
+{% endblock %}
+
+{% block body %}
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">BookReview</a>
+      </div>
+      <form action="{{ url_for('search') }}" method="post">
+          <input name="search" class="nav navbar-nav search-input" style="display : inline-block;" placeholder="Search a book">
+          <select name="searchfilter" class="nav navbar-nav" style="display : inline-block; height : 30px;">
+            <option value="title">Title</option>
+            <option value="isbn">ISBN</option>
+            <option value="author">Author</option>
+          </select>
+      </form>
+      <form action="{{ url_for('logout') }}" class="nav navbar-nav navbar-right" method="post">
+        <button style="margin : 10px; color: #fff; background-color: #0074d9; border-radius: 3px; border : 0px;">SignOut</button>
+      </form>
+    </div>
+  </nav>
+  <div class="search-list">
+    <ul class="form-group search-group">
+      <center>
+        <h1>Search Results</h1>
+        {% for book in books %}
+          <a href= "{{ url_for('book', id = book.id) }}"<li class="form-control book-results">Title : {{book.title}}, ISBN : {{book.isbn}}, Author : {{book.author}}</li></a>
+        {% else %}
+          <li><h3>No results found!!!</h3></li>
+        {% endfor %}
+      </center>
+    </ul>
+  </div>
+{% endblock %}

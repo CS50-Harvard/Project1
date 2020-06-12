@@ -1,2 +1,3 @@
-# Project1
-Book Review Application
+# Project 1
+
+Web Programming with Python and JavaScript

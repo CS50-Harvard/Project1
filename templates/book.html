@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Book Information
+{% endblock %}
+
+{% block body %}
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">BookReview</a>
+      </div>
+      <form action="{{ url_for('logout') }}" class="nav navbar-nav navbar-right" method="post">
+        <button style="margin : 10px; color: #fff; background-color: #0074d9; border-radius: 3px; border : 0px;">SignOut</button>
+      </form>
+    </div>
+  </nav>
+  <div style = "background-color : #212529; color : #f2f2f2; height : 100vh;" >
+    <div style ="margin-left : 20px;">
+      <h1 style="color : gold;">{{book.title}}</h1><br/>
+      <h5>Written by : {{book.author}}</h5>
+      <h5>Published in year : {{book.bdate}}</h5>
+      <h5>ISBN number : {{book.isbn}}</h5>
+      <h5>Averag rating : {{avgRating}}</h5>
+      <h5>Number of Ratings : {{numberOfRatings}}</h5>
+      <br/>
+      <br/>
+      <h3 style="color : gold;">Reviews</h3><br/>
+        {% for bookreview in bookreviews %}
+          <h5><b>{{bookreview.userid}}</b> rates this book {{bookreview.rating}}/5 and say's : {{bookreview.review}}</h5>
+        {% else %}
+          <h5>No Reviews yet. Be the first one to add a review</h5><br/>
+        {% endfor %}
+      {% if showReviewOption %}
+        <form action="{{ url_for('review', bookid = book.id)}}" method="post">
+          <div style="font-size : 20px">
+            Rate this book :
+            <select name="rating" style = "font-size : 16px;">
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+            </select>
+          </div>
+          <br/>
+          <input type = "text" name = "review" placeholder = "Submit a review...">
+          <button class="btn btn-primary">Submit</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
